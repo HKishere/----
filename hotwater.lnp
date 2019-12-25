@@ -1,0 +1,7 @@
+"main.obj",
+"lcd.obj",
+"timer.obj",
+"STARTUP.obj",
+"pt100.obj" 
+TO "hotwater" 
+RAMSIZE(256) 
