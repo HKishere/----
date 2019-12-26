@@ -91,20 +91,20 @@ void WaitForEnable(void)
 	Y:0~1		 第几行
 	s:"Light"	
 *********************************************************************************/
-//void DisplayChar(uchar Y,uchar X,uchar *s)                         //如果想显示姓名可将该函数打开调用即可
-//{						
-//    Y&=1;						
-//    X&=15;						
-//    if(Y)	X|=0xC0;					
-//    else 	X|=0x80;
-//    while(*s!='\0')
-//	{
-//		LcdWriteCom(X++,0);
-//		LcdWriteData(*s);
-//		Delays(1);
-//		s++;
-//	}					
-//}
+void DisplayChar(uchar Y,uchar X,uchar *s)//如果想显示姓名可将该函数打开调用即可
+{						
+    Y&=1;						
+    X&=15;						
+    if(Y)	X|=0xC0;					
+    else 	X|=0x80;
+    while(*s!='\0')
+	{
+		LcdWriteCom(X++,0);
+		LcdWriteData(*s);
+		Delay1ms(1);
+		s++;
+	}					
+}
 
 
 

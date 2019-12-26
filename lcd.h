@@ -24,7 +24,7 @@ void LcdWriteData(uchar dataW);
 void LcdInit();	
 void WaitForEnable(void);
 /******显示字符串********/
-//void DisplayChar(uchar Y,uchar X,uchar *s);
+void DisplayChar(uchar Y,uchar X,uchar *s);
 /******显示3位整数，1位小数********/
 void Display(uchar x,uchar y,uint datas);
 /******显示2位整数，两位小数********/

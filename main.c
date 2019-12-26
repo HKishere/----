@@ -6,8 +6,14 @@
 #include "stdio.h"	
 //#include "pid.h"
 #include "pt100.h"
+#include "Uart.h"
 
-int set_temperature=50;                            //温度设定在经济
+#define uint unsigned int
+#define uchar unsigned char
+
+uchar Buffer[5];
+uchar i=0,flag;
+int set_temperature=80;                            //温度设定在经济
 float gxlb_wendu=0;                                //惯性滤波后的温度
 float av_wendu=0;                                  //采样50次后求平均值
 float gc_wendu=0;                                  //工程计算后的温度
@@ -24,89 +30,7 @@ float  PreError=0;                                 //PID算法中上次偏差
 float  PPreError=0;                                //PID算法中上上次偏差
 float  Det=0;                                      //PID算法计算结果
 int Time_On=50;                                    //PWM波的周期
-
-void My_USART1_Init(void)
-{
-
-//GPIO结构体定义
-GPIO_InitTypeDef ?GPIO_InitStructure;
-
-//串口结构体定义
-USART_InitTypeDef USART_InitStructure;
-
-//中断结构体定义
-NVIC_InitTypeDef NVIC_InitStructure;
-//使能时钟
-RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);//使能USART1时钟
-RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);//使能GPIOA时钟
-
-//引脚映射
-
-GPIO_PinAFConfig(GPIOA,GPIO_PinSource9,GPIO_AF_USART1);
-GPIO_PinAFConfig(GPIOA,GPIO_PinSource10,GPIO_AF_USART1);
-
- //端口初始化
-
- //GPIOA9端口初始化结构体参数设置
-
- GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
- GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
- GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
- GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
- GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-
- //GPIOA9端口初始化
- GPIO_Init(GPIOA, &GPIO_InitStructure);
-
- //GPIOA10端口初始化结构体参数设置
-
-GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-
- //GPIOA10端口初始化
- GPIO_Init(GPIOA, &GPIO_InitStructure);
-
- //串口初始化结构体参数设置
-
- USART_InitStructure.USART_BaudRate=115200;
-USART_InitStructure.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
-USART_InitStructure.USART_Mode=USART_Mode_Rx|USART_Mode_Tx;
-USART_InitStructure.USART_Parity=USART_Parity_No;
-USART_InitStructure.USART_StopBits=USART_StopBits_1;
-USART_InitStructure.USART_WordLength=USART_WordLength_8b;
-
-//串口初始化
-USART_Init(USART1,&USART_InitStructure);
-
-//串口使能
-USART_Cmd(USART1 ,ENABLE);
-//中断使能
-USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);//接收非空使能
-
-//中断初始化结构体参数设置
-NVIC_InitStructure.NVIC_IRQChannel=USART1_IRQn;
-NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
-NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1;
-NVIC_InitStructure.NVIC_IRQChannelSubPriority=1;
-
-//中断初始化
-NVIC_Init(&NVIC_InitStructure);
-}
-
-void USART1_IRQHandler(void)
-{
-	//判断串口1
-	if (USART_GetITStatus(USART1, USART_IT_RXNE))
-	{
-		//从串口1是否发生接收中断
-		res = USART_ReceiveData(USART1);
-		//通过串口1发送数据
-		USART_SendData(USART1, fd_wendu);
-	}
-}
+uint  send_count;
 /*******************************************************************************
 * 函数名         : junzhi_lvbo_10
 * 函数功能		   : AD采样温度数值平均值滤波，惯性滤波，工程量转换函数
@@ -131,7 +55,6 @@ void junzhi_lvbo_10(unsigned int A)
 	}
 }
 
-
 /*******************************************************************************
 * 函数名         : PID
 * 函数功能		 : PID算法，
@@ -150,6 +73,7 @@ void PID()
 }
 
 
+
 /*******************************************************************************
 * 函数名         : main
 * 函数功能		 : 主程序计算
@@ -160,8 +84,11 @@ void main()
 {
 		LcdInit();                                                          //液晶屏初始化                          
 		DisplayChar(0,0,"set:");
+		Delay1ms(10);                                                       //延时5毫秒
 		DisplayChar(1,0,"now:");
+		Delay1ms(10);                                                       //延时5毫秒
 		DisplayChar(0,8,"kishere");
+		Delay1ms(10);                                                       //延时5毫秒
 		LCD_dis_data3(1,4,set_temperature);                                 //数字代表第一行第四列，显示温度给定值
 		Delay1ms(10);                                                       //延时5毫秒
 		init_timer0();	                                                    //单片机定时器初始化
@@ -169,15 +96,19 @@ void main()
 		EA=1;                                                               //总中断开关
 		EADC=1;	                                                            //ADC中断使能位
 		while(1)
-		{ 
-				junzhi_lvbo_10(ADC);                                            //AD转换数据滤波
-				Display1(2,4,fd_wendu);                                         //显示当前温度
-				PID();															//进入PID计算
-				//中断分组使能
-				NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-				//串口初始化
-				My_USART1_Init();
-				USART1_IRQHandler();
+		{
+			send_count++;
+			junzhi_lvbo_10(ADC);	  //AD转换数据滤波
+			Display1(2, 4, fd_wendu); //显示当前温度
+			Delay1ms(1);
+			PID();					  //进入PID计算
+			//发一次温度数据
+			//Init_Uart();
+			//if (send_count > 10000)
+			//{
+			//	send_str(fd_wendu);
+			//}
+			//Delay1ms(1);
 		}	
 }
 
