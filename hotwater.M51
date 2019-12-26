@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        12/26/2019  11:15:19  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/26/2019  17:07:25  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -40,10 +40,10 @@ LINK MAP OF MODULE:  hotwater (MAIN)
             IDATA   0010H     0001H     UNIT         ?STACK
 
             * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
-            XDATA   0000H     009FH     UNIT         ?XD?MAIN
-            XDATA   009FH     000DH     UNIT         _XDATA_GROUP_
-            XDATA   00ACH     0002H     UNIT         ?XD?TIMER
-            XDATA   00AEH     0002H     UNIT         ?XD?PT100
+            XDATA   0000H     009DH     UNIT         ?XD?MAIN
+            XDATA   009DH     000DH     UNIT         _XDATA_GROUP_
+            XDATA   00AAH     0002H     UNIT         ?XD?TIMER
+            XDATA   00ACH     0002H     UNIT         ?XD?PT100
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
@@ -58,22 +58,22 @@ LINK MAP OF MODULE:  hotwater (MAIN)
             CODE    06BDH     00E2H     UNIT         ?PR?_DISPLAY1?LCD
             CODE    079FH     00D5H     UNIT         ?C_INITSEG
             CODE    0874H     00A4H     UNIT         ?PR?_LCD_DIS_DATA3?LCD
-            CODE    0918H     0092H     UNIT         ?PR?MAIN?MAIN
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 2
+            CODE    0918H     008CH     UNIT         ?C_C51STARTUP
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 2
 
 
-            CODE    09AAH     008CH     UNIT         ?C_C51STARTUP
-            CODE    0A36H     0074H     UNIT         ?PR?TIMER0?TIMER
-            CODE    0AAAH     006CH     UNIT         ?PR?_DISPLAYCHAR?LCD
-            CODE    0B16H     0041H     UNIT         ?PR?ADC_ISR?PT100
-            CODE    0B57H     003FH     UNIT         ?PR?LCDINIT?LCD
-            CODE    0B96H     0021H     UNIT         ?PR?INIT_TIMER0?TIMER
-            CODE    0BB7H     001EH     UNIT         ?PR?_DELAY1MS?LCD
-            CODE    0BD5H     001EH     UNIT         ?PR?_LCDWRITECOM?LCD
-            CODE    0BF3H     001BH     UNIT         ?PR?_DELAY?PT100
-            CODE    0C0EH     0014H     UNIT         ?PR?WAITFORENABLE?LCD
-            CODE    0C22H     0012H     UNIT         ?CO?MAIN
-            CODE    0C34H     0011H     UNIT         ?PR?INITADC?PT100
+            CODE    09A4H     0084H     UNIT         ?PR?MAIN?MAIN
+            CODE    0A28H     0074H     UNIT         ?PR?TIMER0?TIMER
+            CODE    0A9CH     006CH     UNIT         ?PR?_DISPLAYCHAR?LCD
+            CODE    0B08H     0041H     UNIT         ?PR?ADC_ISR?PT100
+            CODE    0B49H     003FH     UNIT         ?PR?LCDINIT?LCD
+            CODE    0B88H     0021H     UNIT         ?PR?INIT_TIMER0?TIMER
+            CODE    0BA9H     001EH     UNIT         ?PR?_DELAY1MS?LCD
+            CODE    0BC7H     001EH     UNIT         ?PR?_LCDWRITECOM?LCD
+            CODE    0BE5H     001BH     UNIT         ?PR?_DELAY?PT100
+            CODE    0C00H     0014H     UNIT         ?PR?WAITFORENABLE?LCD
+            CODE    0C14H     0012H     UNIT         ?CO?MAIN
+            CODE    0C26H     0011H     UNIT         ?PR?INITADC?PT100
 
 
 
@@ -103,28 +103,28 @@ SEGMENT                            XDATA_GROUP
   +--> ?PR?_LCDWRITECOM?LCD
   +--> ?PR?_DELAY1MS?LCD
 
-?PR?_LCDWRITECOM?LCD             00ABH    0001H
+?PR?_LCDWRITECOM?LCD             00A9H    0001H
   +--> ?PR?WAITFORENABLE?LCD
 
-?PR?_DISPLAYCHAR?LCD             009FH    0004H
+?PR?_DISPLAYCHAR?LCD             009DH    0004H
   +--> ?PR?_LCDWRITECOM?LCD
   +--> ?PR?_LCDWRITEDATA?LCD
   +--> ?PR?_DELAY1MS?LCD
 
-?PR?_LCDWRITEDATA?LCD            00ABH    0001H
+?PR?_LCDWRITEDATA?LCD            00A9H    0001H
   +--> ?PR?WAITFORENABLE?LCD
 
-?PR?_LCD_DIS_DATA3?LCD           009FH    0008H
+?PR?_LCD_DIS_DATA3?LCD           009DH    0008H
   +--> ?PR?_LCDWRITECOM?LCD
   +--> ?PR?_LCDWRITEDATA?LCD
 
 ?PR?INITADC?PT100                -----    -----
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 3
 
 
   +--> ?PR?_DELAY?PT100
 
-?PR?_DISPLAY1?LCD                009FH    000CH
+?PR?_DISPLAY1?LCD                009DH    000CH
   +--> ?PR?_LCDWRITECOM?LCD
   +--> ?PR?_LCDWRITEDATA?LCD
   +--> ?PR?_DELAY1MS?LCD
@@ -158,7 +158,7 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   X:0008H         PUBLIC        flag
   X:0009H         PUBLIC        Det
   D:00D8H         PUBLIC        CCON
-  C:0918H         PUBLIC        main
+  C:09A4H         PUBLIC        main
   X:000DH         PUBLIC        count
   X:000EH         PUBLIC        Time_On
   D:0098H         PUBLIC        SCON
@@ -166,84 +166,82 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   D:0088H         PUBLIC        TCON
   X:0074H         PUBLIC        PreError
   X:0078H         PUBLIC        gxlb_wendu
-  X:007CH         PUBLIC        send_count
-  X:007EH         PUBLIC        KD0
-  X:0082H         PUBLIC        KI0
+  X:007CH         PUBLIC        KD0
+  X:0080H         PUBLIC        KI0
   D:00E0H         PUBLIC        ACC
-  X:0086H         PUBLIC        KP0
-  X:008AH         PUBLIC        L
-  X:008BH         PUBLIC        fd_wendu
-  X:008DH         PUBLIC        gc_wendu
-  X:0091H         PUBLIC        sum
+  X:0084H         PUBLIC        KP0
+  X:0088H         PUBLIC        L
+  X:0089H         PUBLIC        fd_wendu
+  X:008BH         PUBLIC        gc_wendu
+  X:008FH         PUBLIC        sum
   C:0429H         PUBLIC        PID
-  X:0093H         PUBLIC        Buffer
-  X:0098H         PUBLIC        av_wendu
-  X:009CH         PUBLIC        set_temperature
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 4
+  X:0091H         PUBLIC        Buffer
+  X:0096H         PUBLIC        av_wendu
+  X:009AH         PUBLIC        set_temperature
+  X:009CH         PUBLIC        i
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 4
 
 
-  X:009EH         PUBLIC        i
   C:058CH         PUBLIC        _junzhi_lvbo_10
   D:00D0H         PUBLIC        PSW
   -------         PROC          _JUNZHI_LVBO_10
   D:0006H         SYMBOL        A
+  C:058CH         LINE#         40
   C:058CH         LINE#         41
   C:058CH         LINE#         42
-  C:058CH         LINE#         43
-  C:05A4H         LINE#         44
+  C:05A4H         LINE#         43
+  C:05AFH         LINE#         44
   C:05AFH         LINE#         45
-  C:05AFH         LINE#         46
-  C:05B0H         LINE#         47
+  C:05B0H         LINE#         46
+  C:05C6H         LINE#         47
   C:05C6H         LINE#         48
-  C:05C6H         LINE#         49
-  C:05EDH         LINE#         50
-  C:05F5H         LINE#         51
-  C:0612H         LINE#         52
-  C:065CH         LINE#         53
-  C:0699H         LINE#         54
+  C:05EDH         LINE#         49
+  C:05F5H         LINE#         50
+  C:0612H         LINE#         51
+  C:065CH         LINE#         52
+  C:0699H         LINE#         53
+  C:06BCH         LINE#         54
   C:06BCH         LINE#         55
-  C:06BCH         LINE#         56
   -------         ENDPROC       _JUNZHI_LVBO_10
   -------         PROC          PID
+  C:0429H         LINE#         63
   C:0429H         LINE#         64
   C:0429H         LINE#         65
-  C:0429H         LINE#         66
-  C:043DH         LINE#         67
-  C:0451H         LINE#         68
-  C:0474H         LINE#         69
-  C:0541H         LINE#         70
-  C:0569H         LINE#         71
-  C:057CH         LINE#         72
-  C:058BH         LINE#         73
+  C:043DH         LINE#         66
+  C:0451H         LINE#         67
+  C:0474H         LINE#         68
+  C:0541H         LINE#         69
+  C:0569H         LINE#         70
+  C:057CH         LINE#         71
+  C:058BH         LINE#         72
   -------         ENDPROC       PID
   -------         PROC          MAIN
-  C:0918H         LINE#         83
-  C:0918H         LINE#         84
-  C:0918H         LINE#         85
-  C:091BH         LINE#         86
-  C:0927H         LINE#         87
-  C:092EH         LINE#         88
-  C:093BH         LINE#         89
-  C:0942H         LINE#         90
-  C:094FH         LINE#         91
-  C:0956H         LINE#         92
-  C:0965H         LINE#         93
-  C:096CH         LINE#         94
-  C:096FH         LINE#         95
-  C:0972H         LINE#         96
-  C:0974H         LINE#         97
-  C:0976H         LINE#         98
-  C:0976H         LINE#         99
-  C:0976H         LINE#         100
-  C:0984H         LINE#         101
-  C:098FH         LINE#         102
-  C:099EH         LINE#         103
-  C:09A5H         LINE#         104
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 5
-
-
-  C:09A8H         LINE#         112
+  C:09A4H         LINE#         80
+  C:09A4H         LINE#         81
+  C:09A4H         LINE#         82
+  C:09A7H         LINE#         83
+  C:09B3H         LINE#         84
+  C:09BAH         LINE#         85
+  C:09C7H         LINE#         86
+  C:09CEH         LINE#         87
+  C:09DBH         LINE#         88
+  C:09E2H         LINE#         89
+  C:09F1H         LINE#         90
+  C:09F8H         LINE#         91
+  C:09FBH         LINE#         92
+  C:09FEH         LINE#         94
+  C:0A00H         LINE#         95
+  C:0A02H         LINE#         96
+  C:0A02H         LINE#         97
+  C:0A02H         LINE#         98
+  C:0A0DH         LINE#         99
+  C:0A1CH         LINE#         100
+  C:0A23H         LINE#         101
+  C:0A26H         LINE#         104
   -------         ENDPROC       MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 5
+
+
   -------         ENDMOD        MAIN
 
   -------         MODULE        LCD
@@ -253,10 +251,10 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
-  C:0BB7H         PUBLIC        _Delay1ms
+  C:0BA9H         PUBLIC        _Delay1ms
   D:00C8H         PUBLIC        P5
   C:06BDH         PUBLIC        _Display1
-  C:0C0EH         PUBLIC        WaitForEnable
+  C:0C00H         PUBLIC        WaitForEnable
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   C:000EH         PUBLIC        _LcdWriteData
@@ -264,46 +262,46 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   D:00D8H         PUBLIC        CCON
   C:0874H         PUBLIC        _LCD_dis_data3
   B:00A0H.4       PUBLIC        LCD1602_RW
-  C:0B57H         PUBLIC        LcdInit
+  C:0B49H         PUBLIC        LcdInit
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   B:00A0H.3       PUBLIC        LCD1602_E
-  C:0BD5H         PUBLIC        _LcdWriteCom
+  C:0BC7H         PUBLIC        _LcdWriteCom
   D:00E0H         PUBLIC        ACC
-  C:0AAAH         PUBLIC        _DisplayChar
+  C:0A9CH         PUBLIC        _DisplayChar
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DELAY1MS
   D:0006H         SYMBOL        y
   -------         DO            
   D:0004H         SYMBOL        x
   -------         ENDDO         
-  C:0BB7H         LINE#         12
-  C:0BB7H         LINE#         13
-  C:0BB7H         LINE#         15
-  C:0BC0H         LINE#         16
-  C:0BD4H         LINE#         17
+  C:0BA9H         LINE#         12
+  C:0BA9H         LINE#         13
+  C:0BA9H         LINE#         15
+  C:0BB2H         LINE#         16
+  C:0BC6H         LINE#         17
   -------         ENDPROC       _DELAY1MS
   -------         PROC          _LCDWRITECOM
-  X:00ABH         SYMBOL        CMD
+  X:00A9H         SYMBOL        CMD
   D:0005H         SYMBOL        Attribc
-  C:0BD5H         LINE#         25
-  C:0BDAH         LINE#         26
-  C:0BDAH         LINE#         27
-  C:0BE0H         LINE#         28
-  C:0BE4H         LINE#         29
-  C:0BE5H         LINE#         30
-  C:0BEBH         LINE#         31
-  C:0BECH         LINE#         32
-  C:0BEEH         LINE#         33
-  C:0BF0H         LINE#         34
-  C:0BF2H         LINE#         35
+  C:0BC7H         LINE#         25
+  C:0BCCH         LINE#         26
+  C:0BCCH         LINE#         27
+  C:0BD2H         LINE#         28
+  C:0BD6H         LINE#         29
+  C:0BD7H         LINE#         30
+  C:0BDDH         LINE#         31
+  C:0BDEH         LINE#         32
+  C:0BE0H         LINE#         33
+  C:0BE2H         LINE#         34
+  C:0BE4H         LINE#         35
   -------         ENDPROC       _LCDWRITECOM
   -------         PROC          _LCDWRITEDATA
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 6
-
-
-  X:00ABH         SYMBOL        dataW
+  X:00A9H         SYMBOL        dataW
   C:000EH         LINE#         43
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 6
+
+
   C:0013H         LINE#         44
   C:0013H         LINE#         45
   C:0016H         LINE#         46
@@ -316,60 +314,60 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   C:0028H         LINE#         53
   -------         ENDPROC       _LCDWRITEDATA
   -------         PROC          LCDINIT
-  C:0B57H         LINE#         60
-  C:0B57H         LINE#         61
-  C:0B57H         LINE#         62
-  C:0B5EH         LINE#         63
-  C:0B65H         LINE#         64
-  C:0B6CH         LINE#         65
-  C:0B73H         LINE#         66
-  C:0B7AH         LINE#         67
-  C:0B81H         LINE#         68
-  C:0B88H         LINE#         69
-  C:0B8FH         LINE#         70
+  C:0B49H         LINE#         60
+  C:0B49H         LINE#         61
+  C:0B49H         LINE#         62
+  C:0B50H         LINE#         63
+  C:0B57H         LINE#         64
+  C:0B5EH         LINE#         65
+  C:0B65H         LINE#         66
+  C:0B6CH         LINE#         67
+  C:0B73H         LINE#         68
+  C:0B7AH         LINE#         69
+  C:0B81H         LINE#         70
   -------         ENDPROC       LCDINIT
   -------         PROC          WAITFORENABLE
-  C:0C0EH         LINE#         78
-  C:0C0EH         LINE#         79
-  C:0C0EH         LINE#         80
-  C:0C11H         LINE#         81
-  C:0C15H         LINE#         82
-  C:0C16H         LINE#         83
-  C:0C18H         LINE#         84
-  C:0C1AH         LINE#         85
-  C:0C1FH         LINE#         86
-  C:0C21H         LINE#         87
+  C:0C00H         LINE#         78
+  C:0C00H         LINE#         79
+  C:0C00H         LINE#         80
+  C:0C03H         LINE#         81
+  C:0C07H         LINE#         82
+  C:0C08H         LINE#         83
+  C:0C0AH         LINE#         84
+  C:0C0CH         LINE#         85
+  C:0C11H         LINE#         86
+  C:0C13H         LINE#         87
   -------         ENDPROC       WAITFORENABLE
   -------         PROC          _DISPLAYCHAR
   D:0006H         SYMBOL        Y
-  X:009FH         SYMBOL        X
-  X:00A0H         SYMBOL        s
-  C:0AAAH         LINE#         94
-  C:0ABAH         LINE#         95
-  C:0ABAH         LINE#         96
-  C:0ABEH         LINE#         97
-  C:0AC2H         LINE#         98
-  C:0ACDH         LINE#         99
-  C:0AD4H         LINE#         100
-  C:0AE4H         LINE#         101
-  C:0AE4H         LINE#         102
-  C:0AF0H         LINE#         103
-  C:0B02H         LINE#         104
-  C:0B09H         LINE#         105
-  C:0B13H         LINE#         106
-  C:0B15H         LINE#         107
+  X:009DH         SYMBOL        X
+  X:009EH         SYMBOL        s
+  C:0A9CH         LINE#         94
+  C:0AACH         LINE#         95
+  C:0AACH         LINE#         96
+  C:0AB0H         LINE#         97
+  C:0AB4H         LINE#         98
+  C:0ABFH         LINE#         99
+  C:0AC6H         LINE#         100
+  C:0AD6H         LINE#         101
+  C:0AD6H         LINE#         102
+  C:0AE2H         LINE#         103
+  C:0AF4H         LINE#         104
+  C:0AFBH         LINE#         105
+  C:0B05H         LINE#         106
+  C:0B07H         LINE#         107
   -------         ENDPROC       _DISPLAYCHAR
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 7
-
-
   -------         PROC          _LCD_DIS_DATA3
   D:0007H         SYMBOL        x
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 7
+
+
   D:0005H         SYMBOL        y
-  X:009FH         SYMBOL        data4
+  X:009DH         SYMBOL        data4
   -------         DO            
-  X:00A1H         SYMBOL        pos
-  X:00A2H         SYMBOL        i
-  X:00A3H         SYMBOL        str
+  X:009FH         SYMBOL        pos
+  X:00A0H         SYMBOL        i
+  X:00A1H         SYMBOL        str
   -------         ENDDO         
   C:0874H         LINE#         112
   C:087CH         LINE#         113
@@ -393,11 +391,11 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   -------         PROC          _DISPLAY1
   D:0007H         SYMBOL        x
   D:0005H         SYMBOL        y
-  X:009FH         SYMBOL        datas
+  X:009DH         SYMBOL        datas
   -------         DO            
-  X:00A1H         SYMBOL        pos
-  X:00A2H         SYMBOL        i
-  X:00A3H         SYMBOL        str
+  X:009FH         SYMBOL        pos
+  X:00A0H         SYMBOL        i
+  X:00A1H         SYMBOL        str
   -------         ENDDO         
   C:06BDH         LINE#         136
   C:06C5H         LINE#         137
@@ -419,11 +417,11 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   C:0780H         LINE#         155
   C:0780H         LINE#         156
   C:0796H         LINE#         157
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 8
-
-
   C:0798H         LINE#         158
   -------         ENDPROC       _DISPLAY1
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 8
+
+
   -------         ENDMOD        LCD
 
   -------         MODULE        TIMER
@@ -447,55 +445,55 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   D:008DH         PUBLIC        TH1
   D:008AH         PUBLIC        TL0
   D:008BH         PUBLIC        TL1
-  C:0A36H         PUBLIC        timer0
+  C:0A28H         PUBLIC        timer0
   B:00B8H.1       PUBLIC        PT0
   B:00B8H.3       PUBLIC        PT1
   B:0088H.4       PUBLIC        TR0
   B:0088H.6       PUBLIC        TR1
-  X:00ACH         PUBLIC        PWM_Count
-  C:0B96H         PUBLIC        init_timer0
+  X:00AAH         PUBLIC        PWM_Count
+  C:0B88H         PUBLIC        init_timer0
   B:00B0H.3       PUBLIC        PWM
   D:00D0H         PUBLIC        PSW
   -------         PROC          INIT_TIMER0
-  C:0B96H         LINE#         13
-  C:0B96H         LINE#         14
-  C:0B96H         LINE#         15
-  C:0B98H         LINE#         16
-  C:0B9AH         LINE#         17
-  C:0B9CH         LINE#         18
-  C:0B9FH         LINE#         19
-  C:0BA2H         LINE#         20
-  C:0BA5H         LINE#         21
-  C:0BA7H         LINE#         22
-  C:0BA9H         LINE#         23
-  C:0BACH         LINE#         24
-  C:0BB2H         LINE#         25
-  C:0BB4H         LINE#         26
-  C:0BB6H         LINE#         27
+  C:0B88H         LINE#         13
+  C:0B88H         LINE#         14
+  C:0B88H         LINE#         15
+  C:0B8AH         LINE#         16
+  C:0B8CH         LINE#         17
+  C:0B8EH         LINE#         18
+  C:0B91H         LINE#         19
+  C:0B94H         LINE#         20
+  C:0B97H         LINE#         21
+  C:0B99H         LINE#         22
+  C:0B9BH         LINE#         23
+  C:0B9EH         LINE#         24
+  C:0BA4H         LINE#         25
+  C:0BA6H         LINE#         26
+  C:0BA8H         LINE#         27
   -------         ENDPROC       INIT_TIMER0
   -------         PROC          TIMER0
-  C:0A36H         LINE#         29
-  C:0A4BH         LINE#         31
-  C:0A4DH         LINE#         32
-  C:0A50H         LINE#         33
-  C:0A53H         LINE#         34
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 9
+  C:0A28H         LINE#         29
+  C:0A3DH         LINE#         31
+  C:0A3FH         LINE#         32
+  C:0A42H         LINE#         33
+  C:0A45H         LINE#         34
+  C:0A53H         LINE#         35
+  C:0A6FH         LINE#         36
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 9
 
 
-  C:0A61H         LINE#         35
-  C:0A7DH         LINE#         36
-  C:0A81H         LINE#         38
-  C:0A83H         LINE#         39
-  C:0A8EH         LINE#         40
-  C:0A8EH         LINE#         41
-  C:0A95H         LINE#         42
-  C:0A95H         LINE#         43
-  C:0A97H         LINE#         44
+  C:0A73H         LINE#         38
+  C:0A75H         LINE#         39
+  C:0A80H         LINE#         40
+  C:0A80H         LINE#         41
+  C:0A87H         LINE#         42
+  C:0A87H         LINE#         43
+  C:0A89H         LINE#         44
   -------         ENDPROC       TIMER0
   -------         ENDMOD        TIMER
 
   -------         MODULE        ?C_STARTUP
-  C:09AAH         SEGMENT       ?C_C51STARTUP
+  C:0918H         SEGMENT       ?C_C51STARTUP
   I:0010H         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
@@ -505,7 +503,7 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   N:0000H         SYMBOL        IBPSTACK
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
-  C:09ADH         SYMBOL        IDATALOOP
+  C:091BH         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
   N:0000H         SYMBOL        PDATALEN
@@ -514,18 +512,18 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
-  C:09AAH         SYMBOL        STARTUP1
+  C:0918H         SYMBOL        STARTUP1
   N:0000H         SYMBOL        XBPSTACK
   N:0000H         SYMBOL        XBPSTACKTOP
   N:0000H         SYMBOL        XDATALEN
   N:0000H         SYMBOL        XDATASTART
   C:0000H         LINE#         126
-  C:09AAH         LINE#         133
-  C:09ACH         LINE#         134
-  C:09ADH         LINE#         135
-  C:09AEH         LINE#         136
-  C:09B0H         LINE#         185
-  C:09B3H         LINE#         196
+  C:0918H         LINE#         133
+  C:091AH         LINE#         134
+  C:091BH         LINE#         135
+  C:091CH         LINE#         136
+  C:091EH         LINE#         185
+  C:0921H         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
   -------         MODULE        PT100
@@ -539,45 +537,45 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   C:0003H         PUBLIC        _SendData
   D:00A8H         PUBLIC        IE
   D:00BDH         PUBLIC        ADC_RES
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 10
-
-
   D:00B8H         PUBLIC        IP
   B:0098H.1       PUBLIC        TI
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 10
+
+
   D:00D8H         PUBLIC        CCON
   D:00BCH         PUBLIC        ADC_CONTR
   D:0099H         PUBLIC        SBUF
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   D:00E0H         PUBLIC        ACC
-  X:00AEH         PUBLIC        ADC
-  C:0B16H         PUBLIC        adc_isr
+  X:00ACH         PUBLIC        ADC
+  C:0B08H         PUBLIC        adc_isr
   D:009DH         PUBLIC        P1ASF
-  C:0C34H         PUBLIC        InitADC
+  C:0C26H         PUBLIC        InitADC
   D:00BEH         PUBLIC        ADC_RESL
-  C:0BF3H         PUBLIC        _Delay
+  C:0BE5H         PUBLIC        _Delay
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DELAY
   D:0006H         SYMBOL        n
   -------         DO            
   D:0004H         SYMBOL        x
   -------         ENDDO         
-  C:0BF3H         LINE#         18
-  C:0BF3H         LINE#         19
-  C:0BF3H         LINE#         21
-  C:0BFDH         LINE#         22
-  C:0BFDH         LINE#         23
-  C:0C01H         LINE#         24
-  C:0C0DH         LINE#         26
+  C:0BE5H         LINE#         18
+  C:0BE5H         LINE#         19
+  C:0BE5H         LINE#         21
+  C:0BEFH         LINE#         22
+  C:0BEFH         LINE#         23
+  C:0BF3H         LINE#         24
+  C:0BFFH         LINE#         26
   -------         ENDPROC       _DELAY
   -------         PROC          INITADC
-  C:0C34H         LINE#         34
-  C:0C34H         LINE#         35
-  C:0C34H         LINE#         36
-  C:0C37H         LINE#         37
-  C:0C3AH         LINE#         38
-  C:0C3CH         LINE#         39
-  C:0C3FH         LINE#         40
+  C:0C26H         LINE#         34
+  C:0C26H         LINE#         35
+  C:0C26H         LINE#         36
+  C:0C29H         LINE#         37
+  C:0C2CH         LINE#         38
+  C:0C2EH         LINE#         39
+  C:0C31H         LINE#         40
   -------         ENDPROC       INITADC
   -------         PROC          _SENDDATA
   D:0006H         SYMBOL        dat
@@ -593,19 +591,19 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   D:000EH         SYMBOL        ADCH
   D:000CH         SYMBOL        ADCL
   -------         ENDDO         
-  C:0B16H         LINE#         63
-  C:0B21H         LINE#         67
-  C:0B24H         LINE#         68
-  C:0B2BH         LINE#         69
-  C:0B30H         LINE#         70
-  C:0B32H         LINE#         71
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  11:15:19  PAGE 11
+  C:0B08H         LINE#         63
+  C:0B13H         LINE#         67
+  C:0B16H         LINE#         68
+  C:0B1DH         LINE#         69
+  C:0B22H         LINE#         70
+  C:0B24H         LINE#         71
+  C:0B28H         LINE#         72
+  C:0B32H         LINE#         73
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/26/2019  17:07:25  PAGE 11
 
 
-  C:0B36H         LINE#         72
-  C:0B40H         LINE#         73
-  C:0B4BH         LINE#         74
-  C:0B4EH         LINE#         75
+  C:0B3DH         LINE#         74
+  C:0B40H         LINE#         75
   -------         ENDPROC       ADC_ISR
   -------         ENDMOD        PT100
 
@@ -652,5 +650,5 @@ SYMBOL TABLE OF MODULE:  hotwater (MAIN)
   C:041DH         PUBLIC        ?C?LSTXDATA
   -------         ENDMOD        ?C?LSTXDATA
 
-Program Size: data=17.0 xdata=176 code=3139
+Program Size: data=17.0 xdata=174 code=3125
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   MAIN                                                                  12/26/2019 11:15:19 PAGE 1   
+C51 COMPILER V9.01   MAIN                                                                  12/26/2019 17:07:25 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
@@ -15,127 +15,119 @@ line level    source
    6          #include "stdio.h"      
    7          //#include "pid.h"
    8          #include "pt100.h"
-   9          #include "Uart.h"
-  10          
-  11          #define uint unsigned int
-  12          #define uchar unsigned char
-  13          
-  14          uchar Buffer[5];
-  15          uchar i=0,flag;
-  16          int set_temperature=80;                            //温度设定在经济
-  17          float gxlb_wendu=0;                                //惯性滤波后的温度
-  18          float av_wendu=0;                                  //采样50次后求平均值
-  19          float gc_wendu=0;                                  //工程计算后的温度
-  20          unsigned int fd_wendu=0;                           //将工程计算后的温度放大100倍
-  21          unsigned int lvbo[50]={0};                         //平均滤波数组
-  22          unsigned char L=0;                                 //平均滤波数组变量
-  23          unsigned int sum=0;                                //数组求和
-  24          char count;                                        //数组计数
-  25          float  KP0=30;                                     //PID算法中比例系数
-  26          float  KI0=0.7;                                    //PID算法中积分系数
-  27          float  KD0=80;                                     //PID算法中微分系数
-  28          float  Error=0;                                    //PID算法中当前偏差
-  29          float  PreError=0;                                 //PID算法中上次偏差
-  30          float  PPreError=0;                                //PID算法中上上次偏差
-  31          float  Det=0;                                      //PID算法计算结果
-  32          int Time_On=50;                                    //PWM波的周期
-  33          uint  send_count;
-  34          /*******************************************************************************
-  35          * 函数名         : junzhi_lvbo_10
-  36          * 函数功能                 : AD采样温度数值平均值滤波，惯性滤波，工程量转换函数
-  37          * 输入           : AD采样温度数值
-  38          * 输出           : 显示工程量值，摄氏度
-  39          * 注意                 ：当显示温度与实际温度有误差时，请调节工程量转换参数
-  40          *******************************************************************************/
-  41          void junzhi_lvbo_10(unsigned int A)
-  42          {
-  43   1              lvbo[L++]=A;
-  44   1              if(L==50)
-  45   1              {
-  46   2              L=0;
-  47   2              for(count=0,sum=0;count<50;count++)
-  48   2                      {
-  49   3                              sum+=lvbo[count];
-  50   3                      }
-  51   2                        av_wendu = sum/50;                                        //求平均数
-  52   2                        gxlb_wendu    =av_wendu * 0.7 + gxlb_wendu *0.3;          //惯性滤波
-  53   2                        gc_wendu=(gxlb_wendu*100/1024-30)/0.72;                   //工程量转换1
-  54   2                        fd_wendu=gc_wendu * 100 ;                                 //放大100倍
-  55   2              }
-C51 COMPILER V9.01   MAIN                                                                  12/26/2019 11:15:19 PAGE 2   
+   9          
+  10          #define uint unsigned int
+  11          #define uchar unsigned char
+  12          
+  13          uchar Buffer[5];
+  14          uchar i=0,flag;
+  15          int set_temperature=62;                            //温度设定在经济
+  16          float gxlb_wendu=0;                                //惯性滤波后的温度
+  17          float av_wendu=0;                                  //采样50次后求平均值
+  18          float gc_wendu=0;                                  //工程计算后的温度
+  19          unsigned int fd_wendu=0;                           //将工程计算后的温度放大100倍
+  20          unsigned int lvbo[50]={0};                         //平均滤波数组
+  21          unsigned char L=0;                                 //平均滤波数组变量
+  22          unsigned int sum=0;                                //数组求和
+  23          char count;                                        //数组计数
+  24          float  KP0=30;                                     //PID算法中比例系数
+  25          float  KI0=0.5;                                    //PID算法中积分系数
+  26          float  KD0=80;                                     //PID算法中微分系数
+  27          float  Error=0;                                    //PID算法中当前偏差
+  28          float  PreError=0;                                 //PID算法中上次偏差
+  29          float  PPreError=0;                                //PID算法中上上次偏差
+  30          float  Det=0;                                      //PID算法计算结果
+  31          int Time_On=50;                                    //PWM波的周期
+  32          //uint  count_flag = 0;
+  33          /*******************************************************************************
+  34          * 函数名         : junzhi_lvbo_10
+  35          * 函数功能                 : AD采样温度数值平均值滤波，惯性滤波，工程量转换函数
+  36          * 输入           : AD采样温度数值
+  37          * 输出           : 显示工程量值，摄氏度
+  38          * 注意                 ：当显示温度与实际温度有误差时，请调节工程量转换参数
+  39          *******************************************************************************/
+  40          void junzhi_lvbo_10(unsigned int A)
+  41          {
+  42   1              lvbo[L++]=A;
+  43   1              if(L==50)
+  44   1              {
+  45   2              L=0;
+  46   2              for(count=0,sum=0;count<50;count++)
+  47   2                      {
+  48   3                              sum+=lvbo[count];
+  49   3                      }
+  50   2                        av_wendu = sum/50;                                        //求平均数
+  51   2                        gxlb_wendu    =av_wendu * 0.7 + gxlb_wendu *0.3;          //惯性滤波
+  52   2                        gc_wendu=(gxlb_wendu*100/1024-30)/0.72;                   //工程量转换1
+  53   2                        fd_wendu=gc_wendu * 100 ;                                 //放大100倍
+  54   2              }
+  55   1      }
+C51 COMPILER V9.01   MAIN                                                                  12/26/2019 17:07:25 PAGE 2   
 
-  56   1      }
-  57          
-  58          /*******************************************************************************
-  59          * 函数名         : PID
-  60          * 函数功能               : PID算法，
-  61          * 输入           : Time_On原始PWM开度
-  62          * 输出           : Time_On调整后PWM开度
-  63          *******************************************************************************/                
-  64          void PID()
-  65          {
-  66   1              PPreError=PreError;                                                  //将上次偏差赋给上上次偏差     
-  67   1              PreError=Error;                                                      //将当前偏差赋给上次偏差
-  68   1              Error=set_temperature-gc_wendu;                                      //计算偏差
-  69   1              Det=KP0*(Error-PreError)+KI0*Error+KD0*(Error-2*PreError+PPreError); //增量式PID计算公式：△u(k)=Kp*(e(k)
+  56          
+  57          /*******************************************************************************
+  58          * 函数名         : PID
+  59          * 函数功能               : PID算法，
+  60          * 输入           : Time_On原始PWM开度
+  61          * 输出           : Time_On调整后PWM开度
+  62          *******************************************************************************/                
+  63          void PID()
+  64          {
+  65   1              PPreError=PreError;                                                  //将上次偏差赋给上上次偏差     
+  66   1              PreError=Error;                                                      //将当前偏差赋给上次偏差
+  67   1              Error=set_temperature-gc_wendu;                                      //计算偏差
+  68   1              Det=KP0*(Error-PreError)+KI0*Error+KD0*(Error-2*PreError+PPreError); //增量式PID计算公式：△u(k)=Kp*(e(k)
              --e(k-1))+Ki*e(k)+Kd*(e(k)-2*e(k-1)+e(k-2))
-  70   1              Time_On=Time_On+Det;                                                 //u(k)=u(k)+△u(k)
-  71   1              if(Time_On>100) Time_On=100;                                         //防计算结果超出设定周期            
+  69   1              Time_On=Time_On+Det;                                                 //u(k)=u(k)+△u(k)
+  70   1              if(Time_On>100) Time_On=100;                                         //防计算结果超出设定周期            
              -   
-  72   1              if(Time_On<0)   Time_On=0;                                           //防计算结果低于最小占空比
-  73   1      }
-  74          
-  75          
-  76          
-  77          /*******************************************************************************
-  78          * 函数名         : main
-  79          * 函数功能               : 主程序计算
-  80          * 输入           : 无
-  81          * 输出           : 无
-  82          *******************************************************************************/
-  83          void main()
-  84          {
-  85   1                      LcdInit();                                                          //液晶屏初始化                      
+  71   1              if(Time_On<0)   Time_On=0;                                           //防计算结果低于最小占空比
+  72   1      }
+  73          
+  74          /*******************************************************************************
+  75          * 函数名         : main
+  76          * 函数功能               : 主程序计算
+  77          * 输入           : 无
+  78          * 输出           : 无
+  79          *******************************************************************************/
+  80          void main()
+  81          {
+  82   1                      LcdInit();                                                          //液晶屏初始化                      
              -    
-  86   1                      DisplayChar(0,0,"set:");
-  87   1                      Delay1ms(10);                                                       //延时5毫秒
-  88   1                      DisplayChar(1,0,"now:");
-  89   1                      Delay1ms(10);                                                       //延时5毫秒
-  90   1                      DisplayChar(0,8,"kishere");
-  91   1                      Delay1ms(10);                                                       //延时5毫秒
-  92   1                      LCD_dis_data3(1,4,set_temperature);                                 //数字代表第一行第四列，显示温度给定
+  83   1                      DisplayChar(0,0,"set:");
+  84   1                      Delay1ms(10);                                                       //延时5毫秒
+  85   1                      DisplayChar(1,0,"now:");
+  86   1                      Delay1ms(10);                                                       //延时5毫秒
+  87   1                      DisplayChar(0,8,"kishere");
+  88   1                      Delay1ms(10);                                                       //延时5毫秒
+  89   1                      LCD_dis_data3(1,4,set_temperature);                                 //数字代表第一行第四列，显示温度给定
              -值
-  93   1                      Delay1ms(10);                                                       //延时5毫秒
-  94   1                      init_timer0();                                                      //单片机定时器初始化
-  95   1                      InitADC();                                                          //AD采样初始化
-  96   1                      EA=1;                                                               //总中断开关
-  97   1                      EADC=1;                                                             //ADC中断使能位
-  98   1                      while(1)
-  99   1                      {
- 100   2                              send_count++;
- 101   2                              junzhi_lvbo_10(ADC);      //AD转换数据滤波
- 102   2                              Display1(2, 4, fd_wendu); //显示当前温度
- 103   2                              Delay1ms(1);
- 104   2                              PID();                                    //进入PID计算
- 105   2                              //发一次温度数据
- 106   2                              //Init_Uart();
- 107   2                              //if (send_count > 10000)
- 108   2                              //{
- 109   2                              //      send_str(fd_wendu);
- 110   2                              //}
- 111   2                              //Delay1ms(1);
- 112   2                      }       
- 113   1      }
-C51 COMPILER V9.01   MAIN                                                                  12/26/2019 11:15:19 PAGE 3   
-
- 114          
+  90   1                      Delay1ms(10);                                                       //延时5毫秒
+  91   1                      init_timer0();                                                      //单片机定时器初始化
+  92   1                      InitADC();                                                          //AD采样初始化
+  93   1                      //Init_Uart();
+  94   1                      EA=1;                                                               //总中断开关
+  95   1                      EADC=1;                                                             //ADC中断使能位
+  96   1                      while(1)
+  97   1                      {
+  98   2                              junzhi_lvbo_10(ADC);      //AD转换数据滤波
+  99   2                              Display1(2, 4, fd_wendu); //显示当前温度
+ 100   2                              Delay1ms(1);
+ 101   2                              PID();                                    //进入PID计算
+ 102   2                              //if(0 == (count_flag%2000))
+ 103   2                              //send_str(fd_wendu);
+ 104   2                      }       
+ 105   1      }
+ 106          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    806    ----
+   CODE SIZE        =    792    ----
    CONSTANT SIZE    =     18    ----
-   XDATA SIZE       =    159    ----
+   XDATA SIZE       =    157    ----
    PDATA SIZE       =   ----    ----
+C51 COMPILER V9.01   MAIN                                                                  12/26/2019 17:07:25 PAGE 3   
+
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----

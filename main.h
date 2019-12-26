@@ -4,5 +4,6 @@
 extern int Time_On;
 void Temp_ControlA();
 void junzhi_lvbo_10(unsigned int A);
+void configband(unsigned int band);
 
 #endif

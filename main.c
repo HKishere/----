@@ -6,14 +6,13 @@
 #include "stdio.h"	
 //#include "pid.h"
 #include "pt100.h"
-#include "Uart.h"
 
 #define uint unsigned int
 #define uchar unsigned char
 
 uchar Buffer[5];
 uchar i=0,flag;
-int set_temperature=80;                            //温度设定在经济
+int set_temperature=62;                            //温度设定在经济
 float gxlb_wendu=0;                                //惯性滤波后的温度
 float av_wendu=0;                                  //采样50次后求平均值
 float gc_wendu=0;                                  //工程计算后的温度
@@ -23,14 +22,14 @@ unsigned char L=0;                                 //平均滤波数组变量
 unsigned int sum=0;                                //数组求和
 char count;                                        //数组计数
 float  KP0=30;                                     //PID算法中比例系数
-float  KI0=0.7;                                    //PID算法中积分系数
+float  KI0=0.5;                                    //PID算法中积分系数
 float  KD0=80;                                     //PID算法中微分系数
 float  Error=0;                                    //PID算法中当前偏差
 float  PreError=0;                                 //PID算法中上次偏差
 float  PPreError=0;                                //PID算法中上上次偏差
 float  Det=0;                                      //PID算法计算结果
 int Time_On=50;                                    //PWM波的周期
-uint  send_count;
+//uint  count_flag = 0;
 /*******************************************************************************
 * 函数名         : junzhi_lvbo_10
 * 函数功能		   : AD采样温度数值平均值滤波，惯性滤波，工程量转换函数
@@ -72,8 +71,6 @@ void PID()
 	if(Time_On<0)	Time_On=0;                                           //防计算结果低于最小占空比
 }
 
-
-
 /*******************************************************************************
 * 函数名         : main
 * 函数功能		 : 主程序计算
@@ -93,22 +90,17 @@ void main()
 		Delay1ms(10);                                                       //延时5毫秒
 		init_timer0();	                                                    //单片机定时器初始化
 		InitADC();                                                          //AD采样初始化
+		//Init_Uart();
 		EA=1;                                                               //总中断开关
 		EADC=1;	                                                            //ADC中断使能位
 		while(1)
 		{
-			send_count++;
 			junzhi_lvbo_10(ADC);	  //AD转换数据滤波
 			Display1(2, 4, fd_wendu); //显示当前温度
 			Delay1ms(1);
 			PID();					  //进入PID计算
-			//发一次温度数据
-			//Init_Uart();
-			//if (send_count > 10000)
-			//{
-			//	send_str(fd_wendu);
-			//}
-			//Delay1ms(1);
+			//if(0 == (count_flag%2000))
+			//send_str(fd_wendu);
 		}	
 }
 

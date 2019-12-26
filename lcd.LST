@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   LCD                                                                   12/26/2019 10:50:29 PAGE 1   
+C51 COMPILER V9.01   LCD                                                                   12/26/2019 17:06:22 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE LCD
@@ -62,7 +62,7 @@ line level    source
   53   1      }
   54          /*******************************************************************************
   55          * 函数名         : LcdInit()
-C51 COMPILER V9.01   LCD                                                                   12/26/2019 10:50:29 PAGE 2   
+C51 COMPILER V9.01   LCD                                                                   12/26/2019 17:06:22 PAGE 2   
 
   56          * 函数功能               : 初始化LCD屏
   57          * 输入           : 无
@@ -126,7 +126,7 @@ line level    source
  115   1              switch(x%2)
  116   1              {
  117   2                      case 1:pos=0x80+y;break; //第一行
-C51 COMPILER V9.01   LCD                                                                   12/26/2019 10:50:29 PAGE 3   
+C51 COMPILER V9.01   LCD                                                                   12/26/2019 17:06:22 PAGE 3   
 
  118   2                      case 0:pos=0xc0+y;break; //第二行
  119   2              }
